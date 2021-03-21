@@ -38,10 +38,10 @@ public class User {
     @LastModifiedDate
     private Timestamp modifiedDate;
 
-    @OneToMany
-    private List<Giver> giver;
-
-    @OneToMany
-    private List<Beneficiary> beneficiary;
+//    @OneToMany
+//    private List<Giver> giver;
+//
+//    @OneToMany
+//    private List<Beneficiary> beneficiary;
 
 }
