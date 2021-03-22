@@ -29,6 +29,11 @@ public class UserService {
         );
     }
 
+    public List<User> getUserByType(String type){
+        BloodType bloodType = BloodType.valueOf(type.toUpperCase(Locale.ROOT));
+        return userRepository.findAllByBloodType(bloodType);
+    }
+
     public List<User> findGiversByCityAndBloodType(Search search){
         String blood  = search.getBloodType().toUpperCase(Locale.ROOT);
         BloodType bloodType = BloodType.valueOf(blood);
