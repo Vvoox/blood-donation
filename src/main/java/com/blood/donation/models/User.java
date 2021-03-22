@@ -1,6 +1,8 @@
 package com.blood.donation.models;
 
 
+import com.blood.donation.enumurations.BloodType;
+import com.blood.donation.enumurations.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,21 +29,18 @@ public class User {
     private String firstName;
     private String lastName;
     private LocalDate date;
+    private UserStatus status;
     private String address;
     private String email;
     private String phoneNumber;
     private String city;
     private String country;
+    private BloodType bloodType;
 
     @CreatedDate
     private Timestamp creationDate;
     @LastModifiedDate
     private Timestamp modifiedDate;
 
-//    @OneToMany
-//    private List<Giver> giver;
-//
-//    @OneToMany
-//    private List<Beneficiary> beneficiary;
 
 }

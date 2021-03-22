@@ -1,10 +1,10 @@
 package com.blood.donation;
 
-import com.blood.donation.models.Beneficiary;
-import com.blood.donation.models.Giver;
+import com.blood.donation.enumurations.BloodType;
+import com.blood.donation.enumurations.UserStatus;
+import com.blood.donation.models.Demand;
 import com.blood.donation.models.User;
-import com.blood.donation.repositories.BeneficiaryRepository;
-import com.blood.donation.repositories.GiverRepository;
+import com.blood.donation.repositories.DemandRepository;
 import com.blood.donation.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -18,8 +18,7 @@ import java.time.LocalDate;
 public class DonationApplication implements CommandLineRunner{
 
     private final UserRepository userRepository;
-    private final GiverRepository giverRepository;
-    private final BeneficiaryRepository beneficiaryRepository;
+    private final DemandRepository demandRepository;
     public static void main(String[] args) {
         SpringApplication.run(DonationApplication.class, args);
     }
@@ -34,6 +33,8 @@ public class DonationApplication implements CommandLineRunner{
                 .city("MARRAKECH")
                 .country("Morocco")
                 .address("Massira 1")
+                .status(UserStatus.GIVER)
+                .bloodType(BloodType.O_POSITIVE)
                 .phoneNumber("+21212345679")
                 .date(LocalDate.now())
                 .build();
@@ -42,24 +43,45 @@ public class DonationApplication implements CommandLineRunner{
                 .lastName("Lahmidi")
                 .city("EL Kalaa")
                 .country("Morocco")
+                .status(UserStatus.BENEFICIARY)
+                .bloodType(BloodType.A_POSITIVE)
                 .address("Kalaa 11")
                 .phoneNumber("+212874859621")
                 .date(LocalDate.now())
                 .build();
-
-        Giver giver = Giver.builder()
-                .typeBlood("O+")
-                .user(user)
+        User user2 = User.builder()
+                .firstName("Ghani")
+                .lastName("Lahmidi")
+                .city("Marrakech")
+                .country("Morocco")
+                .bloodType(BloodType.A_NEGATIVE)
+                .address("Kalaa 11")
+                .status(UserStatus.BOTH)
+                .phoneNumber("+212874859621")
+                .date(LocalDate.now())
                 .build();
 
-        Beneficiary beneficiary = Beneficiary.builder()
-                .user(user1)
+        Demand demand = Demand.builder()
+                .demandDate(LocalDate.now())
+                .city("Marrakech")
+                .hospital("CHU")
+                .bloodType(BloodType.O_POSITIVE)
+                .build();
+        Demand demand1 = Demand.builder()
+                .demandDate(LocalDate.now())
+                .city("Marrakech")
+                .hospital("RAZI")
+                .bloodType(BloodType.O_NEGATIVE)
                 .build();
 
-        userRepository.save(user1);
+
+
         userRepository.save(user);
-        beneficiaryRepository.save(beneficiary);
-        giverRepository.save(giver);
+        userRepository.save(user1);
+        userRepository.save(user2);
+        demandRepository.save(demand);
+        demandRepository.save(demand1);
+
 
     }
 }
