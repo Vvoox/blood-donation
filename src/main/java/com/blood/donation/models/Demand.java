@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Entity
@@ -27,6 +28,6 @@ public class Demand {
     private String description;
     private BloodType bloodType;
 
-    @ManyToOne
-    private User user;
+    @OneToMany
+    private List<User> subscribedUser;
 }

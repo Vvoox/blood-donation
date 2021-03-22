@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -24,6 +25,8 @@ import java.util.Map;
 public class DemandService {
 
     private final DemandRepository demandRepository;
+
+    public List<Demand> getAllDemand(){ return demandRepository.findAll();}
 
     public Demand getDemandById(long id){
         return demandRepository.findById(id).orElseThrow(

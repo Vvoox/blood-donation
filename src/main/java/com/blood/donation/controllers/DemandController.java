@@ -23,6 +23,9 @@ public class DemandController {
 
     private final DemandService demandService;
 
+    @GetMapping
+    public List<Demand> getDemands(){return demandService.getAllDemand();}
+
     @GetMapping("/{id}")
     public Demand getDemandById(@PathVariable long id){
         return demandService.getDemandById(id);

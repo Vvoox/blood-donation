@@ -12,6 +12,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 @SpringBootApplication
 @RequiredArgsConstructor
@@ -61,17 +65,22 @@ public class DonationApplication implements CommandLineRunner{
                 .date(LocalDate.now())
                 .build();
 
+//        List<User> userList = new ArrayList<>();
+//        userList.addAll(Arrays.asList(user,user1));
+
         Demand demand = Demand.builder()
                 .demandDate(LocalDate.now())
                 .city("Marrakech")
                 .hospital("CHU")
                 .bloodType(BloodType.O_POSITIVE)
+                .subscribedUser(Arrays.asList(user,user1))
                 .build();
         Demand demand1 = Demand.builder()
                 .demandDate(LocalDate.now())
                 .city("Marrakech")
                 .hospital("RAZI")
-                .bloodType(BloodType.O_NEGATIVE)
+                .bloodType(BloodType.A_NEGATIVE)
+                .subscribedUser(Arrays.asList(user2))
                 .build();
 
 
