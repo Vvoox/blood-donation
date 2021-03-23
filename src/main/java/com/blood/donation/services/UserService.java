@@ -4,6 +4,7 @@ package com.blood.donation.services;
 import com.blood.donation.enumurations.BloodType;
 import com.blood.donation.enumurations.UserStatus;
 import com.blood.donation.models.Search;
+import com.blood.donation.models.TypeSearch;
 import com.blood.donation.models.User;
 import com.blood.donation.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -54,5 +56,24 @@ public class UserService {
         User user = getUserById(id);
         userRepository.deleteById(user.getId());
         return Map.of("Success","true");
+    }
+
+    public  Map<String,String> changeUserStatus(long id , String status){
+        UserStatus userStatus = UserStatus.valueOf(status.toUpperCase(Locale.ROOT));
+        User user = getUserById(id);
+        user.setStatus(userStatus);
+        userRepository.save(user);
+        return Map.of("Success","true");
+    }
+
+    public List<User> getAllTypes(List<String> typeSearch){
+        List<User> allUsers = new ArrayList<>();
+       typeSearch.forEach(type ->{
+           log.info(type);
+           BloodType bloodType = BloodType.valueOf(type.toUpperCase(Locale.ROOT));
+           allUsers.addAll(userRepository.findAllByBloodType(bloodType));
+       });
+       log.info(allUsers);
+       return allUsers;
     }
 }

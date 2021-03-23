@@ -1,6 +1,7 @@
 package com.blood.donation.controllers;
 
 import com.blood.donation.models.Search;
+import com.blood.donation.models.TypeSearch;
 import com.blood.donation.models.User;
 import com.blood.donation.repositories.UserRepository;
 import com.blood.donation.services.UserService;
@@ -43,6 +44,13 @@ public class UserController {
         }
     }
 
+    @PostMapping("/types")
+    private List<User> getUserByTye(@RequestBody List<String> typeSearch){
+        log.info("Fetch all types by list");
+        log.info(typeSearch);
+        return userService.getAllTypes(typeSearch);
+    }
+
     @GetMapping()
     @ApiOperation(value = "Get All Givers with city and blood type")
     public List<User> getGiversByTypeAndCity(@RequestBody Search search){
@@ -67,5 +75,10 @@ public class UserController {
         return userService.deleteUser(id);
     }
 
+    @PutMapping("/{id}/change-status")
+    @ApiOperation(value = "Change status for User")
+    public Map<String, String> changeStatus(@PathVariable long id , @RequestParam String status){
+        return userService.changeUserStatus(id,status);
+    }
 
 }
